@@ -1,0 +1,177 @@
+:root {
+  --navy: #003d86;
+  --navy-900: #002a5c;
+  --blue: #0069b4;
+  --sky: #009fe3;
+  --yellow: #ffcc00;
+  --yellow-700: #d9a800;
+  --orange: #f39200;
+  --ink: #0b1f3a;
+  --muted: #5a6b85;
+  --line: #dde5f0;
+  --soft: #f3f7fc;
+  --success: #1f9d55;
+  --success-700: #167a41;
+  --danger: #d64545;
+  --shadow: 0 10px 30px rgba(0, 45, 100, 0.12);
+  font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #fff;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 2px;
+}
+
+/* ── Avatars & player names ─────────────────────────────── */
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.player-name {
+  font-weight: 900;
+  color: var(--navy);
+  background: linear-gradient(transparent 58%, color-mix(in srgb, var(--pc) 45%, transparent) 58%);
+  padding: 0 0.08em;
+  white-space: nowrap;
+}
+
+/* ── Big Kahoot-ish buttons ─────────────────────────────── */
+.btn {
+  --b: var(--navy-900);
+  border: none;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: clamp(1.1rem, 2.2vh, 1.45rem);
+  padding: 0.9em 2.1em;
+  box-shadow: 0 6px 0 var(--b);
+  transition:
+    transform 0.08s,
+    box-shadow 0.08s,
+    filter 0.15s;
+  user-select: none;
+}
+
+.btn:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--b);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: #fff;
+}
+
+.btn-yellow {
+  --b: var(--yellow-700);
+  background: var(--yellow);
+  color: var(--navy);
+}
+
+.btn-success {
+  --b: var(--success-700);
+  background: var(--success);
+  color: #fff;
+}
+
+.btn-ghost {
+  --b: #c9d5e5;
+  background: var(--soft);
+  color: var(--navy);
+}
+
+.btn-xl {
+  font-size: clamp(1.4rem, 3vh, 2rem);
+  padding: 0.85em 3em;
+}
+
+/* ── Shared keyframes ───────────────────────────────────── */
+@keyframes pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-10px);
+  }
+  40%,
+  80% {
+    transform: translateX(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

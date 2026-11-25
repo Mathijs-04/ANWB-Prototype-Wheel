@@ -1,0 +1,865 @@
+/* ── Intro & shared activity layout ────────────────────── */
+.intro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.6rem, 1.8vh, 1.2rem);
+  text-align: center;
+}
+
+.intro h3 {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vh, 3.8rem);
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.1;
+}
+
+.intro-text {
+  max-width: 760px;
+  margin: 0 0 2vh;
+  font-size: clamp(1.15rem, 2.6vh, 1.6rem);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.act {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.7rem, 2vh, 1.4rem);
+  flex: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fade 0.3s;
+}
+
+.act-question {
+  max-width: 950px;
+  margin: 0;
+  font-size: clamp(1.6rem, 4vh, 2.7rem);
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--navy);
+}
+
+.act-sub {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: clamp(1rem, 2.1vh, 1.3rem);
+}
+
+.act-kicker {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: clamp(1rem, 2vh, 1.25rem);
+}
+
+.act-big {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vh, 2.3rem);
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.act-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 0.6rem;
+  min-height: 4.5rem;
+}
+
+.big-emoji {
+  font-size: clamp(3.5rem, 10vh, 6rem);
+  line-height: 1;
+  animation: pop 0.45s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--line);
+  transition:
+    background 0.3s,
+    transform 0.3s;
+}
+
+.progress-dot.done {
+  background: color-mix(in srgb, var(--navy) 55%, white);
+}
+
+.progress-dot.current {
+  background: var(--navy);
+  transform: scale(1.35);
+}
+
+.progress-label {
+  margin-left: 0.5rem;
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.feedback {
+  padding: 0.45rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: clamp(1.1rem, 2.4vh, 1.5rem);
+  animation: pop 0.35s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.feedback.good {
+  background: #e3f5ea;
+  color: var(--success-700);
+}
+
+.feedback.bad {
+  background: #fdeaea;
+  color: #b23434;
+}
+
+.info-box {
+  max-width: 820px;
+  padding: 0.8rem 1.3rem;
+  border-radius: 16px;
+  background: #fff8d9;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: clamp(1rem, 2vh, 1.2rem);
+  animation: fade 0.4s;
+}
+
+.turn-banner {
+  display: inline-block;
+  padding: 0.55rem 1.4rem;
+  border: 3px solid var(--pc);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pc) 12%, white);
+  color: var(--navy);
+  font-weight: 800;
+  font-size: clamp(1rem, 2.2vh, 1.35rem);
+}
+
+/* ── Quiz tiles ────────────────────────────────────────── */
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(clamp(78px, 13vh, 128px), 1fr);
+  gap: clamp(0.7rem, 1.6vh, 1.2rem);
+  width: 100%;
+}
+
+.act-quiz .tiles {
+  flex: 1;
+  max-height: 46vh;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: clamp(78px, 13vh, 128px);
+  padding: 0.9rem 1.3rem;
+  border: 3px solid transparent;
+  border-radius: 20px;
+  background: var(--tile, var(--navy));
+  color: var(--tile-text, #fff);
+  font-weight: 800;
+  font-size: clamp(1.1rem, 2.5vh, 1.6rem);
+  text-align: left;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.1s,
+    opacity 0.3s,
+    box-shadow 0.1s;
+}
+
+.tile:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.tile:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+}
+
+.tile-letter {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.2em;
+  height: 2.2em;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  font-weight: 900;
+}
+
+.tile-text small {
+  display: block;
+  font-size: 0.65em;
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+.tile.is-dim {
+  opacity: 0.3;
+}
+
+.tile.is-correct {
+  outline: 6px solid var(--success);
+  outline-offset: 3px;
+}
+
+.tile.is-wrong {
+  opacity: 0.75;
+  outline: 6px solid var(--danger);
+  outline-offset: 3px;
+}
+
+.tile-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.9em;
+  height: 1.9em;
+  margin-left: auto;
+  border-radius: 50%;
+  background: #fff;
+  font-weight: 900;
+}
+
+.tile-mark.good {
+  color: var(--success);
+}
+
+.tile-mark.bad {
+  color: var(--danger);
+}
+
+.tiles-light .tile {
+  --tile: #fff;
+  --tile-text: var(--navy);
+  border-color: var(--line);
+  box-shadow: 0 6px 0 var(--line);
+}
+
+.tiles-light .tile-letter {
+  background: var(--soft);
+  font-size: 1.3em;
+}
+
+.guess-tag {
+  margin-left: auto;
+  padding: 0.2em 0.7em;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: var(--navy);
+  font-size: 0.6em;
+  font-weight: 900;
+}
+
+/* ── Estimate questions ────────────────────────────────── */
+.estimate-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  width: min(100%, 820px);
+}
+
+.estimate-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.2rem;
+  border: 4px solid var(--pc);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--pc) 8%, white);
+  transition: transform 0.3s;
+}
+
+.estimate-card.is-best {
+  transform: scale(1.04);
+  box-shadow: 0 0 0 6px var(--yellow);
+}
+
+.estimate-name {
+  font-weight: 900;
+  font-size: 1.3rem;
+  color: var(--navy);
+}
+
+.estimate-card input {
+  width: 100%;
+  max-width: 260px;
+  padding: 0.4rem;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--navy);
+  font: inherit;
+  font-size: clamp(2rem, 5vh, 3rem);
+  font-weight: 900;
+  text-align: center;
+  outline: none;
+}
+
+.estimate-card input:focus {
+  border-color: var(--pc);
+}
+
+.estimate-diff {
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.answer-reveal {
+  display: flex;
+  flex-direction: column;
+  padding: 0.7rem 2.2rem;
+  border-radius: 22px;
+  background: var(--navy);
+  color: #fff;
+  animation: pop 0.4s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.answer-reveal span {
+  font-weight: 800;
+  opacity: 0.8;
+}
+
+.answer-reveal strong {
+  font-size: clamp(2rem, 5vh, 3.2rem);
+  font-weight: 900;
+  color: var(--yellow);
+}
+
+/* ── Dilemma / this-or-that cards ──────────────────────── */
+.duo-cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.2rem, 3.5vw, 3rem);
+  width: 100%;
+  flex: 1;
+  min-height: 200px;
+  max-height: 44vh;
+}
+
+.duo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.4rem;
+  border: none;
+  border-radius: 28px;
+  color: #fff;
+  font-weight: 900;
+  font-size: clamp(1.3rem, 3.2vh, 2.1rem);
+  line-height: 1.2;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.12s,
+    opacity 0.35s,
+    box-shadow 0.12s;
+}
+
+.duo-card.opt-a {
+  background: var(--navy);
+}
+
+.duo-card.opt-b {
+  background: var(--blue);
+}
+
+.duo-card:hover:not(:disabled) {
+  transform: translateY(-4px);
+}
+
+.duo-card:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.duo-card.is-dim {
+  opacity: 0.3;
+  transform: scale(0.96);
+}
+
+.duo-emoji {
+  font-size: 2.4em;
+  line-height: 1;
+}
+
+.duo-voters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  animation: pop 0.35s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.voter {
+  padding: 0.2em 0.9em;
+  border: 3px solid var(--pc);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 0.7em;
+}
+
+.duo-or {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--navy);
+  font-weight: 900;
+  font-size: 1.2rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+/* ── Conversation ──────────────────────────────────────── */
+.talk-card {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin-top: 1vh;
+  padding: clamp(1.8rem, 6vh, 4rem) clamp(1.5rem, 5vw, 4rem);
+  border: 3px solid var(--line);
+  border-radius: 32px;
+  background: var(--soft);
+  animation: card-in 0.45s cubic-bezier(0.2, 1.2, 0.4, 1);
+}
+
+.talk-card p {
+  margin: 0;
+  font-size: clamp(1.6rem, 4.3vh, 2.9rem);
+  font-weight: 900;
+  line-height: 1.25;
+  color: var(--navy);
+}
+
+.talk-quote {
+  position: absolute;
+  top: -0.35em;
+  left: 0.3em;
+  font-size: 7rem;
+  line-height: 1;
+  font-family: Georgia, serif;
+  color: var(--yellow);
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotate(-2deg);
+  }
+}
+
+.starter {
+  font-weight: 800;
+  color: var(--muted);
+  font-size: clamp(1rem, 2.1vh, 1.3rem);
+}
+
+.talk-timer {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.talk-timeup {
+  color: var(--danger);
+  font-size: 1.3rem;
+}
+
+.ring-timer {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.ring-timer svg {
+  position: absolute;
+  inset: 0;
+}
+
+.ring-timer span {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--navy);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 10;
+}
+
+.ring-fg {
+  fill: none;
+  stroke: var(--sky);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.ring-timer.is-low .ring-fg {
+  stroke: var(--orange);
+}
+
+/* ── Who is it ─────────────────────────────────────────── */
+.clue-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 860px;
+  padding: 1.1rem 2rem;
+  border-radius: 24px;
+  background: var(--yellow);
+  color: var(--navy);
+  animation: card-in 0.45s cubic-bezier(0.2, 1.2, 0.4, 1);
+}
+
+.clue-icon {
+  font-size: clamp(2rem, 5vh, 3rem);
+}
+
+.clue-text {
+  font-size: clamp(1.4rem, 3.6vh, 2.3rem);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.clue-card.clue-photo {
+  padding: 0.6rem;
+  background: #fff;
+  border: 3px solid var(--line);
+}
+
+.clue-card img {
+  display: block;
+  max-height: 32vh;
+  max-width: 100%;
+  border-radius: 18px;
+}
+
+.person-tile {
+  min-height: clamp(70px, 11vh, 110px);
+}
+
+/* ── Describe ──────────────────────────────────────────── */
+.describe-ready {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.round-chip,
+.score-chip {
+  padding: 0.35rem 1.1rem;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--navy);
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.rules {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1rem 1.8rem;
+  border-radius: 20px;
+  background: var(--soft);
+  text-align: left;
+}
+
+.rules p {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.1vh, 1.3rem);
+}
+
+.time-bar {
+  position: relative;
+  width: min(100%, 760px);
+  height: 34px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--soft);
+}
+
+.time-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--sky), var(--blue));
+  transition: width 0.1s linear;
+}
+
+.time-bar span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  color: var(--navy);
+}
+
+.word-card {
+  padding: clamp(1.4rem, 4vh, 2.6rem) clamp(2rem, 6vw, 5rem);
+  border-radius: 30px;
+  background: var(--yellow);
+  color: var(--navy);
+  font-size: clamp(2.6rem, 9vh, 5.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  box-shadow: 0 10px 0 var(--yellow-700);
+  animation: pop 0.3s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+/* ── Memory ────────────────────────────────────────────── */
+.memory-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.memory-stats {
+  display: flex;
+  gap: 1.4rem;
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.memory-stats b {
+  color: var(--navy);
+  font-size: 1.3rem;
+}
+
+.memory-stats .over b {
+  color: var(--orange);
+}
+
+.mem-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: clamp(0.4rem, 1.2vh, 0.8rem);
+  width: min(100%, calc(var(--cols) * 15vh));
+}
+
+.mem-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  background: none;
+  perspective: 800px;
+}
+
+.mem-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.3, 1.3, 0.5, 1);
+}
+
+.mem-card.is-open .mem-inner {
+  transform: rotateY(180deg);
+}
+
+.mem-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  backface-visibility: hidden;
+}
+
+.mem-back {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 26%, var(--yellow) 27%, var(--yellow) 33%, transparent 34%),
+    linear-gradient(135deg, var(--navy), var(--blue));
+  box-shadow: 0 5px 0 var(--navy-900);
+}
+
+.mem-card:hover .mem-back {
+  filter: brightness(1.12);
+}
+
+.mem-front {
+  transform: rotateY(180deg);
+  border: 3px solid var(--line);
+  background: #fff;
+}
+
+.mem-card.is-matched .mem-front {
+  border-color: var(--success);
+  background: #eaf7ef;
+}
+
+.mem-emoji {
+  font-size: clamp(1.8rem, 5vh, 3rem);
+  line-height: 1.1;
+}
+
+.mem-label {
+  font-weight: 800;
+  font-size: clamp(0.7rem, 1.5vh, 0.95rem);
+  color: var(--navy);
+}
+
+/* ── Sync ──────────────────────────────────────────────── */
+.sync-prompt {
+  padding: 1.2rem 3rem;
+  border-radius: 28px;
+  background: var(--navy);
+  color: #fff;
+  font-size: clamp(2rem, 6.5vh, 4rem);
+  font-weight: 900;
+  line-height: 1.15;
+  animation: pop 0.4s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.sync-count {
+  font-size: clamp(8rem, 30vh, 16rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--navy);
+  animation: count-pop 0.85s ease-out;
+}
+
+@keyframes count-pop {
+  0% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.sync-now {
+  padding: 0.5rem 2rem;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: var(--navy);
+  font-size: clamp(2.4rem, 8vh, 5rem);
+  font-weight: 900;
+  animation: pop 0.35s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+
+/* ── Complete ──────────────────────────────────────────── */
+.complete {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.6rem, 1.6vh, 1rem);
+  text-align: center;
+}
+
+.confetti {
+  position: absolute;
+  inset: calc(-1 * clamp(1rem, 3vh, 2.2rem)) calc(-1 * clamp(1rem, 4vw, 3.5rem));
+  width: calc(100% + 2 * clamp(1rem, 4vw, 3.5rem));
+  height: calc(100% + 2 * clamp(1rem, 3vh, 2.2rem));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.complete-check {
+  display: grid;
+  place-items: center;
+  width: clamp(80px, 13vh, 120px);
+  height: clamp(80px, 13vh, 120px);
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--navy);
+  font-size: clamp(2.6rem, 7vh, 4rem);
+  font-weight: 900;
+  box-shadow: 0 0 0 12px color-mix(in srgb, var(--yellow) 30%, white);
+  animation: pop 0.55s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+
+.complete h2 {
+  margin: 0;
+  font-size: clamp(2rem, 5.5vh, 3.6rem);
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.1;
+}
+
+.complete-score {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.6vh, 2.4rem);
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.complete-thanks {
+  margin: 0.3rem 0 1.4rem;
+  color: var(--muted);
+  font-weight: 800;
+  font-size: clamp(1.05rem, 2.2vh, 1.35rem);
+}
+
+@media (max-width: 700px) {
+  .tiles,
+  .estimate-row,
+  .duo-cards {
+    grid-template-columns: 1fr;
+  }
+  .duo-cards {
+    max-height: none;
+  }
+  .duo-or {
+    display: none;
+  }
+}
